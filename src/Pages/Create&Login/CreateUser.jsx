@@ -19,28 +19,28 @@ const CreateUser = () => {
     const [useAlert, setUseAlert] = useState(true)
     const navigate = useNavigate()
     const onSubmit = async (data) => {
-        const imageFile = { image: data.image[0] }
-        const res = await axiosPublic.post(image_hosting_api, imageFile, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        }); console.log('with image url', res.data);
-        if (res.data.success) {
+        // const imageFile = { image: data.image[0] }
+        // const res = await axiosPublic.post(image_hosting_api, imageFile, {
+        //     headers: {
+        //         'content-type': 'multipart/form-data'
+        //     }
+        // }); console.log('with image url', res.data);
+        // if (res.data.success) {
             const name = data.name;
             const email = data.email;
-            const photoUrl = res.data.data.display_url;
+            // const photoUrl = res.data.data.display_url;
             const password = data.password;
-            console.log(name, email, photoUrl, password)
+            console.log(name, email,  password)
             if (!/^(?=.*[a-z])(?!.*[A-Z])(?=.*[0-9]).{6,}$/.test(password)) {
                 return console.log("error")
             }
-            console.log(res.data)
+            // console.log(res.data)
             createUser(email, password)
                 .then(() => {
-                    updateUser(name, photoUrl)
+                    // updateUser(name, photoUrl)
                     signOut(auth)
                     const status = "User";
-                    const user = { name, email, photoUrl, status };
+                    const user = { name, email, status };
                     axiosPublic.post('/users', user)
                         .then(res => res.json())
                         .then(data => {
@@ -67,7 +67,7 @@ const CreateUser = () => {
                         confirmButtonText: 'Ok'
                     })
                 });
-        }
+        // }
     };
     return (
         <div className="flex items-center min-h-screen w-[97%] lg:w-full mx-auto">
